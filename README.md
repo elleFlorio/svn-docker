@@ -3,6 +3,7 @@
 # Description
 Lightweight container providing an SVN server, based on **Alpine Linux** and S6 process management (see [here](https://github.com/smebberson/docker-alpine) for details).
 The access to the server is possible via **WebDav protocol** (http://), and via **custom protocol** (svn://).
+A complete tutorial on how to build this image, and how to run the container is available on [Medium](https://medium.com/@elle.florio/the-svn-dockerization-84032e11d88d#.bafh3otmh)
 
 # Running Commands
 To run the image, you can use the following command:
