@@ -20,3 +20,7 @@ docker exec -t svn-server htpasswd -b /etc/subversion/passwd <username> <passwor
 To verify that everything is up and running, open you browser and connect to `http://localhost/svn`. The system should ask you for the username and password, then it will show you and empty folder (no repos yet!).
 Check also that the custom protocol is working fine: go to you terminal and type `svn info svn://localhost:3960`. The system should connect to the server and tell you that is not able to find any repository.
 For further information on how to configure Subversion, please refer to the [official web page](https://subversion.apache.org/).
+
+# Alternative configuration via SVNADMIN
+If you prefer you can also use the [SVNADMIN](https://github.com/mfreiholz/iF.SVNAdmin) interface via `http://localhost/svnadmin`.
+You'll be prompted with a setup page, remember to test every step on the page then save the configuration.
