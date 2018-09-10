@@ -22,5 +22,5 @@ Check also that the custom protocol is working fine: go to you terminal and type
 For further information on how to configure Subversion, please refer to the [official web page](https://subversion.apache.org/).
 
 # Alternative configuration via SVNADMIN
-If you prefer you can also use the [SVNADMIN](https://github.com/mfreiholz/iF.SVNAdmin) interface via `http://localhost/svnadmin`.
+the image ```elleflorio/svn-server:ui``` provides a graphical ui using the [SVNADMIN](https://github.com/mfreiholz/iF.SVNAdmin) interface via `http://localhost/svnadmin`.
 You'll be prompted with a setup page, remember to test every step on the page then save the configuration.
