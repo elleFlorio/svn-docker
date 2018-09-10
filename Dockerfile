@@ -2,22 +2,18 @@
 FROM smebberson/alpine-base
 
 	# Install Apache2 and other stuff needed to access svn via WebDav
-RUN apk add --no-cache apache2 apache2-utils apache2-webdav mod_dav_svn &&\
 	# Install svn
-	apk add --no-cache subversion &&\
-
 	# Installing utilities for SVNADMIN frontend
-	apk add --no-cache wget unzip php7 php7-apache2 php7-session php7-json &&\
-
 	# Create required folders
+	# Create the authentication file for http access
+	# Getting SVNADMIN interface
+RUN apk add --no-cache apache2 apache2-utils apache2-webdav mod_dav_svn &&\
+	apk add --no-cache subversion &&\
+	apk add --no-cache wget unzip php7 php7-apache2 php7-session php7-json &&\
 	mkdir -p /run/apache2/ &&\
 	mkdir /home/svn/ &&\
 	mkdir /etc/subversion &&\
-
-	# Create the authentication file for http access
 	touch /etc/subversion/passwd &&\
-
-    # Getting SVNADMIN interface
     wget --no-check-certificate https://github.com/mfreiholz/iF.SVNAdmin/archive/stable-1.6.2.zip &&\
 	unzip stable-1.6.2.zip -d /opt &&\
 	rm stable-1.6.2.zip &&\
