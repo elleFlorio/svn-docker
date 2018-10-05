@@ -10,6 +10,7 @@ FROM smebberson/alpine-base
 RUN apk add --no-cache apache2 apache2-utils apache2-webdav mod_dav_svn &&\
 	apk add --no-cache subversion &&\
 	apk add --no-cache wget unzip php7 php7-apache2 php7-session php7-json &&\
+	apk add --no-cache php7-xml &&\	
 	mkdir -p /run/apache2/ &&\
 	mkdir /home/svn/ &&\
 	mkdir /etc/subversion &&\
