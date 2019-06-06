@@ -37,4 +37,4 @@ RUN chmod a+w /etc/subversion/* && chmod a+w /home/svn
 ADD dav_svn.conf /etc/apache2/conf.d/dav_svn.conf
 
 # Expose ports for http and custom protocol access
-EXPOSE 80 443 3960
+EXPOSE 80 443 3690
