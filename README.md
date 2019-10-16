@@ -24,3 +24,10 @@ For further information on how to configure Subversion, please refer to the [off
 # Alternative configuration via SVNADMIN
 the image provides a graphical ui using the [SVNADMIN](https://github.com/mfreiholz/iF.SVNAdmin) interface via `http://localhost/svnadmin`.
 You'll be prompted with a setup page, remember to test every step on the page then save the configuration.
+
+# How to contribute
+I'm super happy if you want to contribute! I do my best to keep this image updated and solve the issues that may arise, but I'm not much an operations guy, and I have very limited free time. :sweat_smile:
+
+If you find something that can be improved or the solution to some issue, just comment the issue to notify that you will handle it, and then submit a pull request. I will then merge it and publish the updated image in the Docker Hub. :wink:
+
+Thank you! :smile:

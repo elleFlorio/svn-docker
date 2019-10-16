@@ -9,7 +9,7 @@ FROM smebberson/alpine-base:3.2.0
 	# Getting SVNADMIN interface
 RUN apk add --no-cache apache2 apache2-utils apache2-webdav mod_dav_svn &&\
 	apk add --no-cache subversion &&\
-	apk add --no-cache wget unzip php7 php7-apache2 php7-session php7-json &&\
+	apk add --no-cache wget unzip php7 php7-apache2 php7-session php7-json php7-ldap &&\
 	apk add --no-cache php7-xml &&\	
 	mkdir -p /run/apache2/ &&\
 	mkdir /home/svn/ &&\
@@ -38,6 +38,9 @@ RUN chmod a+w /etc/subversion/* && chmod a+w /home/svn
 
 # Add WebDav configuration
 ADD dav_svn.conf /etc/apache2/conf.d/dav_svn.conf
+
+# Set HOME in non /root folder
+ENV HOME /home
 
 # Expose ports for http and custom protocol access
 EXPOSE 80 443 3690
