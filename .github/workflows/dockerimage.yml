@@ -10,13 +10,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Set image tag
+    - name: Get image tag
       shell: bash
       run: echo "##[set-output name=tag;]$(if [ ${GITHUB_REF#refs/heads/} = 'master' ]; then echo 'latest'; else echo ${GITHUB_REF#refs/heads/}; fi)"
       id: set_tag
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag elleflorio/svn-docker:${{ steps.set_tag.outputs.tag }}
-    - name: Login to Docker Hub
-      run: docker login -u elleflorio -p ${{ secrets.DOCKER_PWD }}
-    - name: Push to Docker Hub
-      run: docker push elleflorio/svn-server:${{ steps.set_tag.outputs.tag }}
+    - uses: jerray/publish-docker-action@master
+      with:
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_PWD }}
+        tags: ${{ steps.set_tag.outputs.tag }}
