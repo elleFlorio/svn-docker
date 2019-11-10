@@ -15,7 +15,7 @@ jobs:
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       id: extract_branch
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag elleflorio/svn-docker:${{ steps.extract_branch.outputs.branch }}
+      run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USER }}/svn-docker:${{ steps.extract_branch.outputs.branch }}
     - name: Login to Docker Hub
       run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PWD }}
     - name: Push to Docker Hub
