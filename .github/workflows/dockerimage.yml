@@ -15,8 +15,8 @@ jobs:
       run: echo "##[set-output name=tag;]$(if [ ${GITHUB_REF#refs/heads/} = 'master' ]; then echo 'latest'; else echo ${GITHUB_REF#refs/heads/}; fi)"
       id: set_tag
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag elleflorio/svn-docker:${{ steps.set_tag.outputs.branch }}
+      run: docker build . --file Dockerfile --tag elleflorio/svn-docker:${{ steps.set_tag.outputs.tag }}
     - name: Login to Docker Hub
       run: docker login -u elleflorio -p ${{ secrets.DOCKER_PWD }}
     - name: Push to Docker Hub
-      run: docker push elleflorio/svn-server:${{ steps.set_tag.outputs.branch }}
+      run: docker push elleflorio/svn-server:${{ steps.set_tag.outputs.tag }}
