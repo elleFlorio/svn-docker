@@ -1,0 +1,22 @@
+name: Docker Image CI
+
+on: [push]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Get image tag
+      shell: bash
+      run: echo "##[set-output name=tag;]$(if [ ${GITHUB_REF#refs/heads/} = 'master' ]; then echo 'latest'; else echo ${GITHUB_REF#refs/heads/}; fi)"
+      id: set_tag
+    - uses: jerray/publish-docker-action@master
+      with:
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_PWD }}
+        repository: elleflorio/svn-server
+        tags: ${{ steps.set_tag.outputs.tag }}
