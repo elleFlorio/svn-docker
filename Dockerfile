@@ -33,6 +33,9 @@ ADD svnadmin/classes/util/global.func.php /opt/svnadmin/classes/util/global.func
 ADD apache/ /etc/services.d/apache/
 ADD subversion/ /etc/services.d/subversion/
 
+RUN chmod +s -R /home/svn/ &&\
+	chown apache:apache -R /home/svn/
+
 # Add SVNAuth file
 ADD subversion-access-control /etc/subversion/subversion-access-control
 RUN chmod a+w /etc/subversion/* && chmod a+w /home/svn
