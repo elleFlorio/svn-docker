@@ -8,9 +8,9 @@ A complete tutorial on how to build this image, and how to run the container is 
 # Running Commands
 To run the image, you can use the following command:
 ```
-docker run -d --name svn-server -p 80:80 -p 3690:3690 elleflorio/svn-server
+docker run -d --name svn-server -p 80:80 -p 3690:3690 -v <hostpath>:/home/svn -v svn_config:/etc/subversion -v svnadmin_config:/opt/svnadmin/data elleflorio/svn-server
 ```
-You can optionally bind a local folder to the container folder that will store your repositories using the flag `-v <hostpath>:/home/svn`.
+`/home/svn` stores your repositories and can use either bind mount or named volume. `/etc/subversion` stores subversion configuration and `/opt/svnadmin/data` stores SVNADMIN configuration and both **MUST** use named volume.
 
 # Configuration
 **You need to setup username and password** for the access via WebDav protocol. You can use the following command from your host machine:
