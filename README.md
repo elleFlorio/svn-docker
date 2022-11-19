@@ -8,15 +8,15 @@ A complete tutorial on how to build this image, and how to run the container is 
 # Running Commands
 To run the image, you can use the following command:
 ```
-docker run -d --name svn-server -p 80:80 -p 3690:3690 -v <hostpath>:/home/svn -v svn_config:/etc/subversion -v svnadmin_config:/opt/svnadmin/data elleflorio/svn-server
+docker run -d --name svn-server -p 80:80 -p 3690:3690 -v <hostpath>:/data elleflorio/svn-server
 ```
-`/home/svn` stores your repositories and can use either bind mount or named volume. `/etc/subversion` stores subversion configuration and `/opt/svnadmin/data` stores SVNADMIN configuration and both **MUST** use named volume.
+
+`/data/repositories` stores your repositories and can use either bind mount or named volume. `/data/subversion` stores subversion configuration and `/data/svnadmin` stores SVNADMIN configuration
 
 # Configuration
-**You need to setup username and password** for the access via WebDav protocol. You can use the following command from your host machine:
-```
-docker exec -t svn-server htpasswd -b /etc/subversion/passwd <username> <password>
-```
+
+* http://localhost/svnadmin/ - **You need to change username and password** from default `admin`/`admin` to your
+
 To verify that everything is up and running, open your browser and connect to `http://localhost/svn`. The system should ask you for the username and password, then it will show you an empty folder (no repos yet!).
 Check also that the custom protocol is working fine: go to your terminal and type `svn info svn://localhost:3690`. The system should connect to the server and tell you that is not able to find any repository.
 For further information on how to configure Subversion, please refer to the [official web page](https://subversion.apache.org/).
@@ -31,3 +31,24 @@ I'm super happy if you want to contribute! I do my best to keep this image updat
 If you find something that can be improved or the solution to some issue, just comment the issue to notify that you will handle it, and then submit a pull request. I will then merge it and publish the updated image in the Docker Hub. :wink:
 
 Thank you! :smile:
+
+## Also you can use a docker-compose.yml for start as service
+
+```
+version: '3'
+
+services:
+  svn_server:
+    image: elleflorio/svn-server
+    ports:
+      - "8011:80" # web port
+      - "3690:3690" # web port
+    volumes:
+      - "./data:/data:rw"
+    restart: always
+    networks:
+      - example_svn_server_net
+networks:
+    example_svn_server_net:
+    driver: bridge
+```

@@ -1,0 +1,31 @@
+#!/usr/bin/with-contenv sh
+
+# From https://github.com/smebberson/docker-alpine/tree/master/alpine-apache
+
+# avoid 'already pid is running' error
+rm -f /run/apache2/httpd.pid
+
+if [ ! -d /data/svnadmin ]; then
+    mkdir -p /data/svnadmin
+fi
+
+# if [ ! -d /data/repositories ]; then
+#     mkdir -p /data/repositories
+# fi
+
+ln -s /data/svnadmin /opt/svnadmin/data
+chmod 777 -R /opt/svnadmin/data
+
+if [ ! -f /opt/svnadmin/data/config.ini ]; then
+    cp /opt/default_data/svnadmin/config.ini /opt/svnadmin/data/config.ini
+fi
+
+if [ ! -f /opt/svnadmin/data/userroleassignments.ini ]; then
+    cp /opt/default_data/svnadmin/userroleassignments.ini /opt/svnadmin/data/userroleassignments.ini
+fi
+
+if [ ! -f /opt/svnadmin/data/config.tpl.ini ]; then
+    cp /opt/default_data/svnadmin/config.tpl.ini /opt/svnadmin/data/config.tpl.ini
+fi
+
+exec /usr/sbin/apachectl -DFOREGROUND;

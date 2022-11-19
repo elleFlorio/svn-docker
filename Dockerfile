@@ -17,24 +17,24 @@ RUN apk add --no-cache apache2 apache2-utils apache2-webdav mod_dav_svn &&\
 	mkdir /etc/subversion &&\
 	touch /etc/subversion/passwd
 
-COPY iF.SVNAdmin /opt/svnadmin
+ADD svn-server/opt/default_data /opt/default_data
 
-RUN ln -s /opt/svnadmin /var/www/localhost/htdocs/svnadmin &&\
-	chmod -R 777 /opt/svnadmin/data
+ADD iF.SVNAdmin /opt/svnadmin
+
+RUN ln -s /opt/svnadmin /var/www/localhost/htdocs/svnadmin
 
 # Solve a security issue (https://alpinelinux.org/posts/Docker-image-vulnerability-CVE-2019-5021.html)	
 RUN sed -i -e 's/^root::/root:!:/' /etc/shadow
 
 # Add services configurations
-ADD apache/ /etc/services.d/apache/
-ADD subversion/ /etc/services.d/subversion/
+ADD svn-server/etc/services.d/apache2/run /etc/services.d/apache2/run
+ADD svn-server/etc/services.d/subversion/run /etc/services.d/subversion/run
 
 # Add SVNAuth file
-ADD subversion-access-control /etc/subversion/subversion-access-control
 RUN chmod a+w /etc/subversion/* && chmod a+w /home/svn
 
 # Add WebDav configuration
-ADD dav_svn.conf /etc/apache2/conf.d/dav_svn.conf
+ADD svn-server/opt/apache2/conf.d/dav_svn.conf /etc/apache2/conf.d/dav_svn.conf
 
 # Set HOME in non /root folder
 ENV HOME /home

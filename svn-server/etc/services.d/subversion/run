@@ -1,0 +1,28 @@
+#!/usr/bin/with-contenv sh
+
+# From https://github.com/smebberson/docker-alpine/tree/master/alpine-apache
+
+
+if [ ! -d /data/repositories ]; then
+    mkdir -p /data/repositories
+fi
+
+chmod 777 /data/repositories
+
+# etc subversion
+if [ ! -d /data/subversion ]; then
+    mkdir -p /data/subversion
+fi
+
+if [ ! -f /data/subversion/passwd ]; then
+    cp /opt/default_data/subversion/passwd /data/subversion/passwd
+fi
+
+if [ ! -f /data/subversion/subversion-access-control ]; then
+    cp /opt/default_data/subversion/subversion-access-control /data/subversion/subversion-access-control
+fi
+
+chmod 777 -R /data/subversion
+ln -s /data/subversion /etc/subversion
+
+exec /usr/bin/svnserve -d --foreground -r /home/svn --listen-port 3690;

@@ -1,1 +1,8 @@
 .github
+.git
+.DS_Store
+README.md
+LICENSE
+
+/data
+/iF.SVNAdmin/data
