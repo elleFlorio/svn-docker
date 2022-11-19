@@ -25,9 +25,6 @@ RUN ln -s /opt/svnadmin /var/www/localhost/htdocs/svnadmin &&\
 # Solve a security issue (https://alpinelinux.org/posts/Docker-image-vulnerability-CVE-2019-5021.html)	
 RUN sed -i -e 's/^root::/root:!:/' /etc/shadow
 
-# Fixing https://github.com/mfreiholz/iF.SVNAdmin/issues/118
-ADD svnadmin/classes/util/global.func.php /opt/svnadmin/classes/util/global.func.php
-
 # Add services configurations
 ADD apache/ /etc/services.d/apache/
 ADD subversion/ /etc/services.d/subversion/
