@@ -23,8 +23,11 @@ RUN apk add --no-cache apache2 apache2-utils apache2-webdav mod_dav_svn &&\
 	ln -s /opt/svnadmin /var/www/localhost/htdocs/svnadmin &&\
 	chmod -R 777 /opt/svnadmin/data
 
-# Solve a security issue (https://alpinelinux.org/posts/Docker-image-vulnerability-CVE-2019-5021.html)	
+# Solve a security issue (https://alpinelinux.org/posts/Docker-image-vulnerability-CVE-2019-5021.html)
 RUN sed -i -e 's/^root::/root:!:/' /etc/shadow
+
+# Solve ServerName issue (https://github.com/elleFlorio/svn-docker/issues/44)
+RUN sed -i 's/#ServerName.*/ServerName localhost:80/g' /etc/apache2/httpd.conf
 
 # Fixing https://github.com/mfreiholz/iF.SVNAdmin/issues/118
 ADD svnadmin/classes/util/global.func.php /opt/svnadmin/classes/util/global.func.php
