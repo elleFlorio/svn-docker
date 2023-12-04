@@ -1,5 +1,11 @@
 [![Docker Image](https://img.shields.io/badge/docker%20image-available-green.svg)](https://hub.docker.com/r/elleflorio/svn-server/)
 
+# DISCONTINUED
+I am sorry but I could not give this repo the love it deserves. 😞  
+So I decided to archive it and make it read only, so people can fork and apply their changes.
+
+Thank you to everyone that contributed! ❤️
+
 # Description
 Lightweight container providing an SVN server, based on **Alpine Linux** and S6 process management (see [here](https://github.com/smebberson/docker-alpine) for details).
 The access to the server is possible via **WebDav protocol** (http://), and via **custom protocol** (svn://).
